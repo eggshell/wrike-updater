@@ -1,7 +1,10 @@
-# google secrets
+# don't check in k8s makefile rev check
+.make-rev-check
+
+# secrets that shouldn't be in version control
 deploy/secrets/client_secrets.json
-deploy/secrets/view_id.yaml
-deploy/secrets/wrike_token.yaml
+deploy/secrets/view-id.yaml
+deploy/secrets/wrike-token.yaml
 
 # Python
 *.pyc
