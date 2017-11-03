@@ -10,7 +10,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
-KEY_FILE_LOCATION = "./var/secrets/google/client_secrets.json"
+KEY_FILE_LOCATION = "/var/secrets/google/client_secrets.json"
 VIEW_ID = os.environ["VIEW_ID"]
 
 

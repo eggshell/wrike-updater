@@ -1,27 +1,33 @@
-apiVersion: v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: wrike-updater
 spec:
-  spec:
-    containers:
-    - name: wrike-updater
-      image: eggshell/wrike-updater
-    volumeMounts:
-    - name: ga-secrets
-      mountPath: /var/secrets/google/client_secrets.json
-    env:
-    - name: WRIKE_TOKEN
-      valueFrom:
-        secretKeyRef:
-          name: wrike-token
-          key: WRIKE_TOKEN
-    - name: VIEW_ID
-      valueFrom:
-        secretKeyRef:
-          name: view-id
-          key: VIEW_ID
-  volumes:
-  - name: ga-secrets
-    configMap:
-      name: ga-secrets-configmap 
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wrike-updater
+    spec:
+      containers:
+      - name: wrike-updater
+        image: eggshell/wrike-updater
+        env:
+        - name: WRIKE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: wrike-token
+              key: WRIKE_TOKEN
+        - name: VIEW_ID
+          valueFrom:
+            secretKeyRef:
+              name: view-id
+              key: VIEW_ID
+        volumeMounts:
+        - name: ga-secrets
+          mountPath: /var/secrets/google/client_secrets.json
+          subPath: client_secrets.json
+      volumes:
+      - name: ga-secrets
+        configMap:
+          name: ga-secrets-configmap

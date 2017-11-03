@@ -3,6 +3,9 @@ deploy/secrets/client_secrets.json
 deploy/secrets/view_id.yaml
 deploy/secrets/wrike_token.yaml
 
+# Python
+*.pyc
+
 # Ignore macOS files
 *.DS_Store
 .AppleDouble

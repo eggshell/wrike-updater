@@ -1,6 +1,10 @@
 FROM jfloff/alpine-python:2.7
 
-RUN mkdir -p /opt/git
+RUN apk add --update --no-cache bash curl
+RUN apk upgrade --no-cache libcurl
+RUN mkdir -p /opt/git/wrike-updater && mkdir -p /var/secrets/google
+RUN chmod 0755 /var/secrets/google
 COPY . /opt/git/wrike-updater
-RUN crontab -l | { cat; echo "* * * * * cd /opt/git/wrike-updater && bash run.sh"; } | crontab -
-CMD ["sh", "-c", "crond"]
+RUN pip install -r /opt/git/wrike-updater/requirements.txt
+RUN crontab -l | { cat; echo "* * * * * cd /opt/git/wrike-updater && bash /opt/git/wrike-updater/run.sh"; } | crontab -
+CMD ["/usr/sbin/crond", "-f", "-d", "0"]

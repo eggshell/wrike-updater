@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 TOTAL=$(python google.py     \
         | grep sessions      \
