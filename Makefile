@@ -8,10 +8,10 @@ images: set-rev
 	./deploy/images/make-image.sh deploy/images/Dockerfile "eggshell/wrike-updater:$$(cat $(REV_FILE))"
 
 tag-images: set-rev
-	sudo docker tag "eggshell/wrike-updater:$$(cat $(REV_FILE))" "eggshell/wrike-updater:$$(cat $(REV_FILE))"
+	docker tag "eggshell/wrike-updater:$$(cat $(REV_FILE))" "eggshell/wrike-updater:$$(cat $(REV_FILE))"
 
 upload-images: set-rev
-	sudo docker push "eggshell/wrike-updater:$$(cat $(REV_FILE))"
+	docker push "eggshell/wrike-updater:$$(cat $(REV_FILE))"
 
 .PHONY: deploy
 deploy: set-rev
