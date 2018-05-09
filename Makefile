@@ -4,13 +4,13 @@ REV_FILE=.make-rev-check
 set-rev:
 	git rev-parse --short HEAD > $(REV_FILE)
 
-images: set-rev
+image: set-rev
 	./deploy/images/make-image.sh deploy/images/Dockerfile "eggshell/wrike-updater:$$(cat $(REV_FILE))"
 
-tag-images: set-rev
+tag-image: set-rev
 	docker tag "eggshell/wrike-updater:$$(cat $(REV_FILE))" "eggshell/wrike-updater:$$(cat $(REV_FILE))"
 
-upload-images: set-rev
+upload-image: set-rev
 	docker push "eggshell/wrike-updater:$$(cat $(REV_FILE))"
 
 .PHONY: deploy
@@ -22,4 +22,4 @@ delete-deployments:
 
 redeploy: delete-deployments deploy
 
-roll: set-rev images tag-images upload-images deploy
+roll: set-rev image tag-image upload-image deploy
