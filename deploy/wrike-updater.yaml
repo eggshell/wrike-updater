@@ -1,33 +1,38 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
   name: wrike-updater
 spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: wrike-updater
+  schedule: "*/15 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: wrike-updater
-        image: eggshell/wrike-updater
-        env:
-        - name: WRIKE_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: wrike-token
-              key: WRIKE_TOKEN
-        - name: VIEW_ID
-          valueFrom:
-            secretKeyRef:
-              name: view-id
-              key: VIEW_ID
-        volumeMounts:
-        - name: ga-secrets
-          mountPath: /var/secrets/google/client_secrets.json
-          subPath: client_secrets.json
-      volumes:
-      - name: ga-secrets
-        configMap:
-          name: ga-secrets-configmap
+      template:
+        metadata:
+          labels:
+            app: wrike-updater
+        spec:
+          volumes:
+          - name: ga-secrets
+            configMap:
+              name: ga-secrets-configmap
+          containers:
+          - name: wrike-updater
+            image: eggshell/wrike-updater:e204ff1
+            imagePullPolicy: Always
+            command: ["/root/run.sh"]
+            env:
+            - name: WRIKE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: wrike-token
+                  key: WRIKE_TOKEN
+            - name: VIEW_ID
+              valueFrom:
+                secretKeyRef:
+                  name: view-id
+                  key: VIEW_ID
+            volumeMounts:
+            - name: ga-secrets
+              mountPath: /var/secrets/google/client_secrets.json
+              subPath: client_secrets.json
+          restartPolicy: OnFailure
