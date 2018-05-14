@@ -31,6 +31,11 @@ spec:
                 secretKeyRef:
                   name: view-id
                   key: VIEW_ID
+            - name: TASK_ID
+              valueFrom:
+                secretKeyRef:
+                  name: task-id
+                  key: TASK_ID
             volumeMounts:
             - name: ga-secrets
               mountPath: /var/secrets/google/client_secrets.json

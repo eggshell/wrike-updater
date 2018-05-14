@@ -31,8 +31,10 @@ git@github.com:eggshell/wrike-updater.git
 ```
 echo -n YOUR_WRIKE_TOKEN | base64
 echo -n YOUR_VIEW_ID | base64
+echo -n YOUR_TASK_ID | base64
 mv example-wrike-token.yaml wrike-token.yaml
 mv example-view-id.yaml view-id.yaml
+mv example-task-id.yaml task-id.yaml
 ```
 
 * Create Kubernetes secrets for your wrike token and view-id:
@@ -40,6 +42,7 @@ mv example-view-id.yaml view-id.yaml
 ```
 kubectl create -f deploy/secrets/wrike-token.yaml
 kubectl create -f deploy/secrets/view-id.yaml
+kubectl create -f deploy/secrets/task-id.yaml
 ```
 
 * Create a configmap for your `client_secrets.json`:
