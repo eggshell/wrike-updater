@@ -3,8 +3,7 @@
 
 # secrets that shouldn't be in version control
 deploy/secrets/client_secrets.json
-deploy/secrets/view-id.yaml
-deploy/secrets/wrike-token.yaml
+deploy/secrets/env-vars.yaml
 
 # Python
 *.pyc

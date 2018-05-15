@@ -24,25 +24,20 @@ git@github.com:eggshell/wrike-updater.git
 
 * Download your `client_secrets.json` from Google and place it in `deploy/secrets`.
 
-* Get your Google view ID and Wrike token, encode them in base64 and place them
-  in `deploy/secrets/example-view-id.yaml` and `deploy/secrets/example-wrike-token.yaml`
-  respectively:
+* Get your Google view ID and Wrike token, encode them in base64, place them in
+  `example-env-vars.yaml` and rename that file to `env-vars.yaml`:
 
 ```
 echo -n YOUR_WRIKE_TOKEN | base64
 echo -n YOUR_VIEW_ID | base64
 echo -n YOUR_TASK_ID | base64
-mv example-wrike-token.yaml wrike-token.yaml
-mv example-view-id.yaml view-id.yaml
-mv example-task-id.yaml task-id.yaml
+mv example-env-vars.yaml env-vars.yaml
 ```
 
-* Create Kubernetes secrets for your wrike token and view-id:
+* Create Kubernetes secrets for your task-id, wrike token, and view-id:
 
 ```
-kubectl create -f deploy/secrets/wrike-token.yaml
-kubectl create -f deploy/secrets/view-id.yaml
-kubectl create -f deploy/secrets/task-id.yaml
+kubectl create -f deploy/secrets/env-vars.yaml
 ```
 
 * Create a configmap for your `client_secrets.json`:
