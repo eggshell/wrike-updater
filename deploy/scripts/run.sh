@@ -2,9 +2,9 @@
 
 set -xe
 
-TOTAL=$(python /root/google.py     \
-        | grep sessions            \
-        | awk '{ print $2 }'       \
+TOTAL=$(python /root/deploy/scripts/google.py     \
+        | grep sessions                           \
+        | awk '{ print $2 }'                      \
         | python -c "import sys; print(sum(int(l) for l in sys.stdin))")
 
 curl -g -X PUT -H "Authorization: bearer $WRIKE_TOKEN"     \

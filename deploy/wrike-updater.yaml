@@ -20,7 +20,7 @@ spec:
           - name: wrike-updater
             image: registry.ng.bluemix.net/eggshell/wrike-updater:latest
             imagePullPolicy: Always
-            command: ["/root/run.sh"]
+            command: ["/root/deploy/scripts/run.sh"]
             env:
             - name: WRIKE_TOKEN
               valueFrom:
