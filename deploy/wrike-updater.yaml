@@ -1,3 +1,4 @@
+---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
@@ -17,7 +18,7 @@ spec:
               name: ga-secrets-configmap
           containers:
           - name: wrike-updater
-            image: eggshell/wrike-updater:e204ff1
+            image: registry.ng.bluemix.net/eggshell/wrike-updater:latest
             imagePullPolicy: Always
             command: ["/root/run.sh"]
             env:

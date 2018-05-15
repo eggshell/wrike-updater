@@ -5,13 +5,13 @@ set-rev:
 	git rev-parse --short HEAD > $(REV_FILE)
 
 image: set-rev
-	./deploy/images/make-image.sh deploy/images/Dockerfile "eggshell/wrike-updater:$$(cat $(REV_FILE))"
+	./deploy/images/make-image.sh deploy/images/Dockerfile "wrike-updater:$$(cat $(REV_FILE))"
 
 tag-image: set-rev
-	docker tag "eggshell/wrike-updater:$$(cat $(REV_FILE))" "eggshell/wrike-updater:$$(cat $(REV_FILE))"
+	docker tag "wrike-updater:$$(cat $(REV_FILE))" "registry.ng.bluemix.net/eggshell/wrike-updater:latest"
 
 upload-image: set-rev
-	docker push "eggshell/wrike-updater:$$(cat $(REV_FILE))"
+	docker push "registry.ng.bluemix.net/eggshell/wrike-updater:latest"
 
 .PHONY: deploy
 deploy: set-rev
