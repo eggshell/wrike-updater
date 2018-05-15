@@ -5,4 +5,3 @@ USER root
 
 COPY . /root
 RUN pip install -r /root/requirements.txt
-RUN ls /root
